@@ -2,8 +2,9 @@ package app;
 
 import java.util.Scanner;
 
+
 /**
- * @author profMajuntke, lucaslar
+ * @author Ayman Othman, Leon Cao
  */
 public class VampireAdventureApp {
     private static Scanner scanner = new Scanner(System.in);
@@ -39,15 +40,21 @@ public class VampireAdventureApp {
                 createVampire();
                 break;
             case 2:
+                ShowVampireData();
                 break;
             case 3:
+                DeleteVampire();
                 break;
+            case 4:
+                StartAdventure();
+                break;
+            case 5:
+                CloseGame();
+                System.out.println("Spiel wird beendet");
+                return;
             default: {
-                System.out.println("Ungueltige Eingabe. Bitte ueberpruefen Sie Ihre Eingabe");
-            }
-            break;
-        }
-    }
+                System.out.println("Ungueltige Eingabe. Bitte ueberpruefen Sie Ihre Eingabe");}
+            break;}}
 
     /**
      *
@@ -58,7 +65,9 @@ public class VampireAdventureApp {
         final String[] menuItems = {
                 "(1)\t Vampir anlegen",
                 "(2)\t Vampirdaten anzeigen",
-                "(3)\t Vampir entfernen"
+                "(3)\t Vampir entfernen",
+                "(4)\t Abenteuer starten",
+                "(5)\t Beenden"
         };
         for (String menuItem : menuItems) {
             System.out.println(menuItem);
@@ -79,6 +88,48 @@ public class VampireAdventureApp {
      *
      */
     private static void createVampire() {
-        System.out.println("\nLeider hat diese Methode noch keinen Code ... aber Du kannst sicher nachvollziehen, wie der Ablauf ist. Hier soll ein neuer Vampir angelegt werden.\n");
+        System.out.println("\nWähle deinen namen,alter und großartigkeit!\r\n" + //
+                        "name: \r\n" + //
+                        "alter: \r\n" + //
+                        "großartigkeit: \n");
     }
+
+    private static void ShowVampireData() {
+        System.out.println("\nDein Vampir:\r\n" + //
+                        "name:-        \r\n" + //
+                        "alter:-      \r\n" + //
+                        "großartigkeit:-        \r\n" + //
+                        "hunger:-       \r\n" + //
+                        "energie:-       \r\n" + //
+                        "endlichtot:-      \n");
+    }
+
+    private static void DeleteVampire() {
+        System.out.println("\nDrück (1) zum löschen\r\n" + //
+                        "Drück (2) zum abbrechen\n");
+
+                        java.util.Scanner scanner = new java.util.Scanner(System.in);
+                        int choice = scanner.nextInt();
+                        
+                        if (choice == 1) {
+                            System.out.println("Vampir wurde gelöscht. Ein neuer Vampir kann erstellt werden.");
+                        
+                        } else {
+                            System.out.println("Löschen abgebrochen.");
+                        }
+                    }
+
+
+    private static void StartAdventure() {
+        System.out.println("\nSteht auf, Vampire, die Sonne ist untergegangen und es gibt noch viel zu tun.\r\n" + //
+                                "Die Zeit läuft: Runde 1\n");
+
+
+    }
+
+    private static void CloseGame() {
+        System.out.println("\n!\r\n");
+
+    }
+
 }
