@@ -1,17 +1,12 @@
 package app;
 
 import java.util.Scanner;
+import model.Vampire;
 
-
-/**
- * @author Ayman Othman, Leon Cao
- */
 public class VampireAdventureApp {
     private static Scanner scanner = new Scanner(System.in);
+    private static Vampire currentVampire; // Diese Variable speichert den aktuellen Vampir
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         showBat();
         while (true) {
@@ -22,43 +17,36 @@ public class VampireAdventureApp {
         }
     }
 
-    /**
-     * @return
-     */
     private static int readUserInput() {
-        System.out.print("\nBitte, geben Sie die Nummer des gewaehlten Menueeintrags ein:\t");
+        System.out.print("\nBitte, geben Sie die Nummer des gewählten Menüeintrags ein:\t");
         int choiceInternal = scanner.nextInt();
         return choiceInternal;
     }
 
-    /**
-     * @param choice
-     */
     private static void handle(int choice) {
         switch (choice) {
             case 1:
                 createVampire();
                 break;
             case 2:
-                ShowVampireData();
+                showVampireData();
                 break;
             case 3:
-                DeleteVampire();
+                deleteVampire();
                 break;
             case 4:
-                StartNightlyAdventure();
+                startAdventure();
                 break;
             case 5:
-                CloseGame();
+                closeGame();
                 System.out.println("Spiel wird beendet");
-                return;
-            default: {
-                System.out.println("Ungueltige Eingabe. Bitte ueberpruefen Sie Ihre Eingabe");}
-            break;}}
+                System.exit(0);
+            default:
+                System.out.println("Ungültige Eingabe. Bitte überprüfen Sie Ihre Eingabe.");
+                break;
+        }
+    }
 
-    /**
-     *
-     */
     private static void showMenu() {
         System.out.println("\n======= Vampire Adventure 1.0 =======\n");
 
@@ -75,8 +63,6 @@ public class VampireAdventureApp {
     }
 
     private static void showBat() {
-        //This ASCII pic can be found at
-        //https://asciiart.website/index.php?art=animals/bats
         System.out.println("   __       __   ____       ____");
         System.out.println("   ) \\     / (   )   \\     /   (");
         System.out.println("  )_  \\_V_/  _(   )_  \\_V_/  _(");
@@ -84,54 +70,61 @@ public class VampireAdventureApp {
         System.out.println("       `-'             `-'");
     }
 
-    /**
-     *
-     */
     private static void createVampire() {
-        System.out.println("\nWähle deinen namen,alter und großartigkeit!\r\n" + //
-                        "name: \r\n" + //
-                        "alter: \r\n" + //
-                        "großartigkeit: \n");
+        System.out.println("\nVampir anlegen\n");
+
+        // Eingabe des Namens und Alters
+        System.out.print("Name des Vampirs: ");
+        String name = scanner.next();
+        System.out.print("Alter des Vampirs: ");
+        int age = scanner.nextInt();
+
+        // Vampir erstellen und speichern
+        currentVampire = new Vampire(name, age);
+
+        System.out.println("Vampir wurde erstellt: " + currentVampire.getName());
     }
 
-    private static void ShowVampireData() {
-        System.out.println("\nDein Vampir:\r\n" + //
-                        "name:-        \r\n" + //
-                        "alter:-      \r\n" + //
-                        "großartigkeit:-        \r\n" + //
-                        "hunger:-       \r\n" + //
-                        "energie:-       \r\n" + //
-                        "endlichtot:-      \n");
+    private static void showVampireData() {
+        System.out.println("\nVampirdaten anzeigen\n");
+
+        if (currentVampire != null) {
+            System.out.println("Name: " + currentVampire.getName());
+            System.out.println("Alter: " + currentVampire.getAge());
+            System.out.println("Großartigkeit: " + currentVampire.getGreatness());
+            System.out.println("Hunger: " + currentVampire.getHunger());
+            System.out.println("Energie: " + currentVampire.getEnergy());
+            System.out.println("Endgültig tot: " + currentVampire.isFinallyDead());
+        } else {
+            System.out.println("Es wurde noch kein Vampir erstellt.");
+        }
     }
 
-    private static void DeleteVampire() {
-        System.out.println("\nDrück (1) zum Löschen\r\n" + 
-                           "Drück (2) zum Abbrechen\n");
-    
-        try (Scanner scanner = new Scanner(System.in)) {
+    private static void deleteVampire() {
+        System.out.println("\nVampir entfernen\n");
+
+        if (currentVampire != null) {
+            System.out.println("Drücken Sie (1), um den Vampir zu löschen");
+            System.out.println("Drücken Sie (2), um abzubrechen");
+
             int choice = scanner.nextInt();
-    
             if (choice == 1) {
+                currentVampire = null;
                 System.out.println("Vampir wurde gelöscht. Ein neuer Vampir kann erstellt werden.");
             } else {
                 System.out.println("Löschen abgebrochen.");
             }
-        } catch (Exception e) {
-            System.out.println("Fehler beim Einlesen der Eingabe: " + e.getMessage());
+        } else {
+            System.out.println("Es wurde noch kein Vampir erstellt.");
         }
-    }    
-
-
-    private static void StartNightlyAdventure() {
-        System.out.println("\nSteht auf, Vampire, die Sonne ist untergegangen und es gibt noch viel zu tun.\r\n" + //
-                                "Die Zeit läuft: Runde 1\n");
-
-
     }
 
-    private static void CloseGame() {
-        System.out.println("\n!\r\n");
-
+    private static void startAdventure() {
+        System.out.println("\nAbenteuer starten\n");
     }
 
+    private static void closeGame() {
+        System.out.println("\nSpiel wird beendet\n");
+        scanner.close();
+    }
 }
