@@ -46,7 +46,7 @@ public class VampireAdventureApp {
                 DeleteVampire();
                 break;
             case 4:
-                StartAdventure();
+                StartNightlyAdventure();
                 break;
             case 5:
                 CloseGame();
@@ -105,22 +105,24 @@ public class VampireAdventureApp {
     }
 
     private static void DeleteVampire() {
-        System.out.println("\nDrück (1) zum löschen\r\n" + //
-                        "Drück (2) zum abbrechen\n");
+        System.out.println("\nDrück (1) zum Löschen\r\n" + 
+                           "Drück (2) zum Abbrechen\n");
+    
+        try (Scanner scanner = new Scanner(System.in)) {
+            int choice = scanner.nextInt();
+    
+            if (choice == 1) {
+                System.out.println("Vampir wurde gelöscht. Ein neuer Vampir kann erstellt werden.");
+            } else {
+                System.out.println("Löschen abgebrochen.");
+            }
+        } catch (Exception e) {
+            System.out.println("Fehler beim Einlesen der Eingabe: " + e.getMessage());
+        }
+    }    
 
-                        java.util.Scanner scanner = new java.util.Scanner(System.in);
-                        int choice = scanner.nextInt();
-                        
-                        if (choice == 1) {
-                            System.out.println("Vampir wurde gelöscht. Ein neuer Vampir kann erstellt werden.");
-                        
-                        } else {
-                            System.out.println("Löschen abgebrochen.");
-                        }
-                    }
 
-
-    private static void StartAdventure() {
+    private static void StartNightlyAdventure() {
         System.out.println("\nSteht auf, Vampire, die Sonne ist untergegangen und es gibt noch viel zu tun.\r\n" + //
                                 "Die Zeit läuft: Runde 1\n");
 
