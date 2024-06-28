@@ -18,9 +18,8 @@ public class Human {
         this.amountOfBlood = 6 + (2 * random.nextDouble());
     }
 
-    // Getter
     /**
-     * Getter-Methoden für alle Attribute.
+     * Getter-Methoden 
      */
     public double getAmountOfBlood() {
         return amountOfBlood;
@@ -34,7 +33,6 @@ public class Human {
         this.amountOfBlood = amountOfBlood;
     }
 
-    // Weitere Methoden
     /**
      * Der Mensch versucht zu fliehen.
      */

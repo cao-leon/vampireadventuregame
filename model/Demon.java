@@ -17,7 +17,6 @@ public class Demon {
         this.name = name;
     }
 
-    // Getter
     /**
      * Getter-Methoden für alle Attribute.
      */
@@ -29,7 +28,6 @@ public class Demon {
         return vampireAbility;
     }
 
-    // Setter
     /**
      * Setter-Methoden für alle Attribute.
      */

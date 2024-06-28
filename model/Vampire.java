@@ -10,7 +10,7 @@ public class Vampire {
     // Attribute
     private String name;
     private int age;
-    private int grandness;
+    private int greatness;
     private int hunger;
     private int energy;
     private boolean finallyDead;
@@ -23,13 +23,12 @@ public class Vampire {
     public Vampire(String name, int age) {
         this.name = name;
         this.age = age;
-        this.grandness = 0;
+        this.greatness = 0;
         this.hunger = 0;
         this.energy = 10;
         this.finallyDead = false;
     }
 
-    // Getter
     /**
      * Getter-Methoden für alle Attribute.
      */
@@ -42,7 +41,7 @@ public class Vampire {
     }
 
     public int getGreatness() {
-        return grandness;
+        return greatness;
     }
 
     public int getHunger() {
@@ -57,7 +56,6 @@ public class Vampire {
         return finallyDead;
     }
 
-    // Setter
     /**
      * Setter-Methoden für alle Attribute.
      */
@@ -69,8 +67,8 @@ public class Vampire {
         this.age = age;
     }
 
-    public void setGreatness(int grandness) {
-        this.grandness = grandness;
+    public void setGreatness(int greatness) {
+        this.greatness = greatness;
     }
 
     public void setHunger(int hunger) {
