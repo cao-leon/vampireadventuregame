@@ -92,8 +92,4 @@ public class VampireHunter {
     public boolean alive() {
         return energy > 0;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 6ff14e747cffc4e573a71edfcdf1e041cdebd63d
