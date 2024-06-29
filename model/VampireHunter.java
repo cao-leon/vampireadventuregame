@@ -7,89 +7,65 @@ import java.util.Random;
  */
 public class VampireHunter {
 
-    // Attribute
     private String name;
     private int energy;
+    private boolean alive;
 
-    /**
-     * Konstruktor für die Klasse VampireHunter.
-     * @param name Der Name des Vampirjägers.
-     */
+    // Konstruktor
     public VampireHunter(String name) {
         this.name = name;
-        // Ein normaler Vampirjäger hat eine Energie von 30
-        this.energy = 30;
+        this.energy = 30; // Standard-Energie eines Vampirjägers
+        this.alive = true;
     }
 
-    /**
-     * Gibt den Namen des Vampirjägers zurück.
-     * @return Der Name des Vampirjägers.
-     */
+    // Überladener Konstruktor für benutzerdefinierte Energie
+    public VampireHunter(String name, int energy) {
+        this.name = name;
+        this.energy = energy;
+        this.alive = true;
+    }
+
+    // Getter und Setter
     public String getName() {
         return name;
     }
 
-    /**
-     * Gibt die Energie des Vampirjägers zurück.
-     * @return Die Energie des Vampirjägers.
-     */
-    public int getEnergy() {
-        return energy;
-    }
-
-    /**
-     * Setzt den Namen des Vampirjägers.
-     * @param name Der neue Name des Vampirjägers.
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * Setzt die Energie des Vampirjägers.
-     * @param energy Die neue Energie des Vampirjägers.
-     */
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public int getEnergy() {
+        return energy;
     }
 
-    // Weitere Methoden
-    /**
-     * Der Vampirjäger greift einen Vampir an.
-     * @param vampire Der Vampir, der angegriffen wird.
-     */
-    public void attack(Vampire vampire) {
-        Random random = new Random();
-        if (random.nextInt(100) < 50) { // 50% Chance zu treffen
-            vampire.takeDamage(3); // Verursacht 3 Schadenspunkte am Vampir
-        } else {
-            System.out.println("Der Vampirjäger hat den Vampir verfehlt.");
+    public void setEnergy(int energy) {
+        this.energy = energy;
+        if (this.energy <= 0) {
+            this.alive = false;
         }
     }
 
-    /**
-     * Der Vampirjäger erleidet Schaden.
-     * @param amount Der erlittene Schaden.
-     */
+    public boolean isAlive() {
+        return alive;
+    }
+
+    // Methoden
+    public void attack(Vampire vampire) {
+        // 50% Wahrscheinlichkeit zu treffen und 3 Schaden zu verursachen
+        Random random = new Random();
+        if (random.nextInt(100) < 50) {
+            System.out.println("Der Vampirjäger hat den Vampir getroffen und 3 Schaden verursacht.");
+            vampire.takeDamage(3);
+        } else {
+            System.out.println("Der Vampirjäger hat verfehlt.");
+        }
+    }
+
     public void takeDamage(int amount) {
         this.energy -= amount;
         if (this.energy <= 0) {
-            System.out.println("Der Vampirjäger " + name + " ist tot.");
+            this.alive = false;
+            System.out.println("Der Vampirjäger ist gestorben.");
         }
-    }
-
-    /**
-     * Der Vampirjäger versucht zu fliehen (flee).
-     */
-    public void flee() {
-        System.out.println("Ein Vampirjäger flieht nie!");
-    }
-
-    /**
-     * Überprüft, ob der Vampirjäger noch lebt.
-     * @return true, wenn der Vampirjäger noch lebt; false sonst.
-     */
-    public boolean alive() {
-        return energy > 0;
     }
 }

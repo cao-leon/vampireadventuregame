@@ -10,7 +10,7 @@ public class Vampire {
     // Attribute
     private String name;
     private int age;
-    private int greatness;
+    private int grandness;
     private int hunger;
     private int energy;
     private boolean finallyDead;
@@ -23,7 +23,7 @@ public class Vampire {
     public Vampire(String name, int age) {
         this.name = name;
         this.age = age;
-        this.greatness = 0;
+        this.grandness = 0;
         this.hunger = 0;
         this.energy = 10;
         this.finallyDead = false;
@@ -40,8 +40,8 @@ public class Vampire {
         return age;
     }
 
-    public int getGreatness() {
-        return greatness;
+    public int getGrandness() {
+        return grandness;
     }
 
     public int getHunger() {
@@ -67,8 +67,8 @@ public class Vampire {
         this.age = age;
     }
 
-    public void setGreatness(int greatness) {
-        this.greatness = greatness;
+    public void setGrandness(int greatness) {
+        this.grandness = greatness;
     }
 
     public void setHunger(int hunger) {
@@ -103,7 +103,6 @@ public class Vampire {
      */
     public void drinkBlood(double amount) {
         System.out.println("Der Vampir trinkt " + amount + " Liter Blut.");
-        // Logik zum Verwandeln des Menschen in einen Vampir hinzufügen
     }
 
     /**
@@ -147,6 +146,17 @@ public class Vampire {
             System.out.println("Der Vampir ist erfolgreich geflohen.");
         } else {
             System.out.println("Der Vampir konnte nicht fliehen.");
+        }
+    }
+
+    /**
+     * Aktualisiert den Hunger des Vampirs nach jeder Runde.
+     */
+    public void updateHunger() {
+        this.hunger += 1;
+        if (this.hunger >= 5) {
+            this.finallyDead = true;
+            System.out.println("Der Vampir ist verhungert und wird aus dem Spiel entfernt.");
         }
     }
 }
