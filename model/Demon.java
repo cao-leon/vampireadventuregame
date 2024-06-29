@@ -17,31 +17,40 @@ public class Demon {
         this.name = name;
     }
 
-    // Getter
     /**
-     * Getter-Methoden für alle Attribute.
+     * Gibt den Namen des Dämons zurück.
+     * @return Der Name des Dämons
      */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gibt die Vampirfähigkeit des Dämons zurück.
+     * @return Die Vampirfähigkeit des Dämons
+     */
     public String getVampireAbility() {
         return vampireAbility;
     }
 
-    // Setter
+    
     /**
-     * Setter-Methoden für alle Attribute.
+     * Setzt den Namen des Dämons.
+     * @param name Der neue Name des Dämons
      */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Setzt die Vampirfähigkeit des Dämons.
+     * @param vampireAbility Die neue Vampirfähigkeit des Dämons
+     */
     public void setVampireAbility(String vampireAbility) {
         this.vampireAbility = vampireAbility;
     }
 
-    // Weitere Methoden
+    //Weitere Methoden
     /**
      * Startet die Aufgabe für den Spieler.
      */

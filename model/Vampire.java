@@ -29,58 +29,98 @@ public class Vampire {
         this.finallyDead = false;
     }
 
-    // Getter
-    /**
-     * Getter-Methoden für alle Attribute.
+     /**
+     * Gibt den Namen des Vampirs zurück.
+     * @return Der Name des Vampirs
      */
     public String getName() {
         return name;
     }
 
+     /**
+     * Gibt das Alter des Vampirs zurück.
+     * @return Das Alter des Vampirs
+     */
     public int getAge() {
         return age;
     }
 
-    public int getGreatness() {
+     /**
+     * Gibt die Großartigkeit des Vampirs zurück.
+     * @return Die Großartigkeit des Vampirs
+     */
+    public int getGrandness() {
         return grandness;
     }
 
+    /**
+     * Gibt den Hunger des Vampirs zurück.
+     * @return Der Hunger des Vampirs
+     */
     public int getHunger() {
         return hunger;
     }
 
+     /**
+     * Gibt die Energie des Vampirs zurück.
+     * @return Die Energie des Vampirs
+     */
     public int getEnergy() {
         return energy;
     }
 
+    /**
+     * Gibt zurück, ob der Vampir endgültig tot ist.
+     * @return true, wenn der Vampir endgültig tot ist, sonst false
+     */
     public boolean isFinallyDead() {
         return finallyDead;
     }
 
-    // Setter
     /**
-     * Setter-Methoden für alle Attribute.
+     * Setzt den Namen des Vampirs.
+     * @param name Der neue Name des Vampirs
      */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Setzt das Alter des Vampirs.
+     * @param age Das neue Alter des Vampirs
+     */
     public void setAge(int age) {
         this.age = age;
     }
 
-    public void setGreatness(int grandness) {
-        this.grandness = grandness;
+    /**
+     * Setzt die Großartigkeit des Vampirs.
+     * @param grandness Die neue Großartigkeit des Vampirs
+     */
+    public void setGrandness(int greatness) {
+        this.grandness = greatness;
     }
 
+    /**
+     * Setzt den Hunger des Vampirs.
+     * @param hunger Der neue Hunger des Vampirs
+     */
     public void setHunger(int hunger) {
         this.hunger = hunger;
     }
 
+    /**
+     * Setzt die Energie des Vampirs.
+     * @param energy Die neue Energie des Vampirs
+     */
     public void setEnergy(int energy) {
         this.energy = energy;
     }
 
+    /**
+     * Setzt den Status, ob der Vampir endgültig tot ist.
+     * @param finallyDead Der neue Status, ob der Vampir endgültig tot ist
+     */
     public void setFinallyDead(boolean finallyDead) {
         this.finallyDead = finallyDead;
     }
@@ -105,7 +145,6 @@ public class Vampire {
      */
     public void drinkBlood(double amount) {
         System.out.println("Der Vampir trinkt " + amount + " Liter Blut.");
-        // Logik zum Verwandeln des Menschen in einen Vampir hinzufügen
     }
 
     /**
@@ -149,6 +188,18 @@ public class Vampire {
             System.out.println("Der Vampir ist erfolgreich geflohen.");
         } else {
             System.out.println("Der Vampir konnte nicht fliehen.");
+        }
+    }
+
+    /**
+     * Aktualisiert den Hunger des Vampirs nach jeder Runde.
+     * Wenn der Hunger 5 erreicht oder überschreitet, stirbt der Vampir.
+     */
+    public void updateHunger() {
+        this.hunger += 1;
+        if (this.hunger >= 5) {
+            this.finallyDead = true;
+            System.out.println("Der Vampir ist verhungert und wird aus dem Spiel entfernt.");
         }
     }
 }

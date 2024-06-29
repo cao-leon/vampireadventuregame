@@ -12,23 +12,24 @@ public class Human {
 
     /**
      * Konstruktor für die Klasse Human.
+     * * Initialisiert den Menschen mit einer zufälligen Menge an Blut zwischen 6 und 8 Litern.
      */
     public Human() {
         Random random = new Random();
         this.amountOfBlood = 6 + (2 * random.nextDouble());
     }
 
-    // Getter
     /**
-     * Getter-Methoden für alle Attribute.
+     * Gibt die Menge an Blut des Menschen zurück.
+     * @return Die Menge an Blut des Menschen
      */
     public double getAmountOfBlood() {
         return amountOfBlood;
     }
 
-    // Setter
-    /**
-     * Setter-Methoden für alle Attribute.
+     /**
+     * Setzt die Menge an Blut des Menschen.
+     * @param amountOfBlood Die neue Menge an Blut des Menschen
      */
     public void setAmountOfBlood(double amountOfBlood) {
         this.amountOfBlood = amountOfBlood;
@@ -36,7 +37,9 @@ public class Human {
 
     // Weitere Methoden
     /**
+    /**
      * Der Mensch versucht zu fliehen.
+     * Mit einer 20%igen Wahrscheinlichkeit ist der Fluchtversuch erfolgreich.
      */
     public void flee() {
         Random random = new Random();
@@ -49,7 +52,8 @@ public class Human {
 
     /**
      * Der Mensch verliert eine bestimmte Menge an Blut.
-     * @param amount Die Menge an verlorenem Blut.
+     * Wenn die Blutmenge unter 5 Liter fällt, verwandelt sich der Mensch in einen Vampir.
+     * @param amount Die Menge an verlorenem Blut
      */
     public void loseBlood(double amount) {
         this.amountOfBlood -= amount;
