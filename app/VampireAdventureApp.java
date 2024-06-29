@@ -176,7 +176,7 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Zeigt die Begegnung des Vampirs mit einem Menschen und ermöglicht eine Entscheidung.
+     * Simuliert die Begegnung des Vampirs mit einem Menschen und ermöglicht eine Entscheidung.
      */
     private static void meetHuman() {
         System.out.println("Du begegnest einem Menschen. Möchtest du ihn angreifen? (ja/nein)");
@@ -193,7 +193,7 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Zeigt die Begegnung des Vampirs mit einem Dämon und stellt eine Aufgabe.
+     * Simuliert die Begegnung des Vampirs mit einem Dämon und stellt eine Aufgabe.
      */
     private static void meetDemon() {
         System.out.println("Du triffst auf einen Dämon. Er stellt dir eine Aufgabe.");
@@ -203,7 +203,7 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Zeigt die Begegnung des Vampirs mit einem Vampirjäger und ermöglicht eine Entscheidung.
+     * Simuliert die Begegnung des Vampirs mit einem Vampirjäger und ermöglicht eine Entscheidung.
      */
     private static void meetVampireHunter() {
         System.out.println("Ein Vampirjäger hat deinen Weg gekreuzt. Deine Zeit ist gekommen...");
@@ -231,7 +231,7 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Kämpft gegen den Vampirjäger. Beendet das Spiel, wenn der Vampir besiegt wird.
+     * Kämpft gegen den Vampirjäger. Endet das Spiel, wenn der Vampir besiegt wird.
      */
     private static void fightVampireHunter() {
         System.out.println("Der Vampir kämpft gegen den Vampirjäger.");

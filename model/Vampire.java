@@ -29,7 +29,7 @@ public class Vampire {
         this.finallyDead = false;
     }
 
-     /**
+    /**
      * Gibt den Namen des Vampirs zurück.
      * @return Der Name des Vampirs
      */
@@ -37,7 +37,7 @@ public class Vampire {
         return name;
     }
 
-     /**
+    /**
      * Gibt das Alter des Vampirs zurück.
      * @return Das Alter des Vampirs
      */
@@ -45,7 +45,7 @@ public class Vampire {
         return age;
     }
 
-     /**
+    /**
      * Gibt die Großartigkeit des Vampirs zurück.
      * @return Die Großartigkeit des Vampirs
      */
@@ -61,7 +61,7 @@ public class Vampire {
         return hunger;
     }
 
-     /**
+    /**
      * Gibt die Energie des Vampirs zurück.
      * @return Die Energie des Vampirs
      */
@@ -97,8 +97,8 @@ public class Vampire {
      * Setzt die Großartigkeit des Vampirs.
      * @param grandness Die neue Großartigkeit des Vampirs
      */
-    public void setGrandness(int greatness) {
-        this.grandness = greatness;
+    public void setGrandness(int grandness) {
+        this.grandness = grandness;
     }
 
     /**
@@ -125,7 +125,6 @@ public class Vampire {
         this.finallyDead = finallyDead;
     }
 
-    // Weitere Methoden
     /**
      * Der Vampir greift einen Menschen an.
      * @param human Der Mensch, der angegriffen wird.
@@ -177,6 +176,7 @@ public class Vampire {
             System.out.println("Doppelte Kraft aktiviert!");
         }
         System.out.println("Der Vampir verursacht " + damage + " Schaden am Vampirjäger.");
+        vh.takeDamage(damage);
     }
 
     /**

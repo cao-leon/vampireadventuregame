@@ -33,7 +33,6 @@ public class Demon {
         return vampireAbility;
     }
 
-    
     /**
      * Setzt den Namen des Dämons.
      * @param name Der neue Name des Dämons
@@ -50,7 +49,6 @@ public class Demon {
         this.vampireAbility = vampireAbility;
     }
 
-    //Weitere Methoden
     /**
      * Startet die Aufgabe für den Spieler.
      */

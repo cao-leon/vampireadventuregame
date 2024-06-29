@@ -12,7 +12,7 @@ public class Human {
 
     /**
      * Konstruktor für die Klasse Human.
-     * * Initialisiert den Menschen mit einer zufälligen Menge an Blut zwischen 6 und 8 Litern.
+     * Initialisiert den Menschen mit einer zufälligen Menge an Blut zwischen 6 und 8 Litern.
      */
     public Human() {
         Random random = new Random();
@@ -27,7 +27,7 @@ public class Human {
         return amountOfBlood;
     }
 
-     /**
+    /**
      * Setzt die Menge an Blut des Menschen.
      * @param amountOfBlood Die neue Menge an Blut des Menschen
      */
@@ -35,8 +35,6 @@ public class Human {
         this.amountOfBlood = amountOfBlood;
     }
 
-    // Weitere Methoden
-    /**
     /**
      * Der Mensch versucht zu fliehen.
      * Mit einer 20%igen Wahrscheinlichkeit ist der Fluchtversuch erfolgreich.
