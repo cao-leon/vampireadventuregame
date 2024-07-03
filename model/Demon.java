@@ -53,7 +53,56 @@ public class Demon {
      * Startet die Aufgabe für den Spieler.
      */
     public void presentTask() {
-        System.out.println("Der Dämon stellt dem Spieler eine Aufgabe...");
-        // Logik zur Präsentation der Aufgabe hier implementieren
+        System.out.println("Einer der großen Dämonen erscheint aus den Schatten...");
+        System.out.println("Der Dämon stellt dir eine Aufgabe.");
+
+        // Hier wird die Logik eingefügt, um die Aufgabe des Dämons zu präsentieren
+        System.out.println("Der Dämon stellt eine Frage oder präsentiert eine Herausforderung.");
+    }
+
+    /**
+     * Löst die vom Dämon gestellte Aufgabe.
+     * @return true, wenn die Aufgabe erfolgreich gelöst wurde, false sonst.
+     */
+    public boolean solveTask() {
+        // Hier wird die Logik implementiert, um die vom Dämon gestellte Aufgabe zu lösen
+        System.out.println("Du versuchst, die Aufgabe des Dämons zu lösen...");
+
+        // Beispiel: Zähle das Vorkommen von "tam" in einem String
+        String str = "tamrexrextamtamrextamrextamtamrex";
+        int anzahl = zaehleVorkommen(str, "tam");
+
+        // Beispiel: Der Spieler hat 20 Sekunden, um die korrekte Anzahl einzugeben
+        int antwort = 3; // Beispiel: Die korrekte Antwort
+        boolean geloest = (anzahl == antwort);
+
+        if (geloest) {
+            System.out.println("Glückwunsch! Du hast die Aufgabe des Dämons gelöst.");
+        } else {
+            System.out.println("Sorry, du hast die Aufgabe des Dämons nicht richtig gelöst.");
+        }
+
+        return geloest;
+    }
+
+    /**
+     * Zählt die Anzahl von Vorkommen eines Teilstrings in einem String.
+     * @param str Der Eingabestring.
+     * @param teilStr Der zu zählende Teilstring.
+     * @return Die Anzahl der Vorkommen von teilStr in str.
+     */
+    private int zaehleVorkommen(String str, String teilStr) {
+        int letztesIndex = 0;
+        int anzahl = 0;
+
+        while (letztesIndex != -1) {
+            letztesIndex = str.indexOf(teilStr, letztesIndex);
+            if (letztesIndex != -1) {
+                anzahl++;
+                letztesIndex += teilStr.length();
+            }
+        }
+
+        return anzahl;
     }
 }
