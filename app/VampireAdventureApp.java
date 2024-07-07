@@ -335,8 +335,6 @@ private static void meetDemon() {
         scanner.close();
     }
 
-
-
     /**
      * Startet das Spiel "Biss-Kralle-Knoblauch", bei dem der Spieler gegen den Computer spielt.
      */
@@ -401,5 +399,6 @@ private static void meetDemon() {
         } else {
             return "Der Computer gewinnt!";
         }
+   
     }
 }
