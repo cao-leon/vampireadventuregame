@@ -399,6 +399,5 @@ private static void meetDemon() {
         } else {
             return "Der Computer gewinnt!";
         }
-   
     }
 }
