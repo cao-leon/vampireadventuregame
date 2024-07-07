@@ -223,7 +223,7 @@ private static void meetDemon() {
         System.out.println("Du entscheidest dich, dich vom Dämon zu entfernen...");
     }
 
-    // Schließe den Scanner, um Ressourcen freizugeben
+    // Schließe den Scanner, um Ressourcen freizugeben.
     scanner.close();
 }
 
