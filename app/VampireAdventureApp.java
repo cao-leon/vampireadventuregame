@@ -1,11 +1,11 @@
 package app;
 
 import java.util.Scanner;
+import java.util.Random;
 import model.Vampire;
 import model.Human;
 import model.Demon;
 import model.VampireHunter;
-import java.util.Random;
 
 /**
  * Die Hauptklasse der Anwendung VampireAdventureApp.
@@ -193,14 +193,39 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Simuliert die Begegnung des Vampirs mit einem Dämon und stellt eine Aufgabe.
-     */
-    private static void meetDemon() {
-        System.out.println("Du triffst auf einen Dämon. Er stellt dir eine Aufgabe.");
-        Demon demon = new Demon("Dämon");
-        demon.presentTask();
-        // Füge hier Logik hinzu, um die Aufgabe des Dämons zu präsentieren und die Belohnung zu vergeben
+ * Simuliert die Begegnung des Vampirs mit einem Dämon und stellt eine Aufgabe.
+ * Der Spieler kann entscheiden, ob er die Aufgabe des Dämons annimmt und löst. Bei erfolgreicher
+ * Lösung erhält der Spieler eine spezielle Fähigkeit als Belohnung.
+ */
+private static void meetDemon() {
+    System.out.println("Du triffst auf einen Dämon. Er stellt dir eine Aufgabe.");
+    Demon demon = new Demon("Dämon");
+    demon.presentTask(); // Präsentiere die Aufgabe des Dämons
+
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Bist du bereit, die Aufgabe zu erfüllen? (ja/nein)");
+    String answer = scanner.nextLine().toLowerCase();
+
+    if (answer.equals("ja")) {
+        boolean taskCompleted = demon.solveTask(); // Methode zur Lösung der Aufgabe des Dämons
+        if (taskCompleted) {
+            System.out.println("Glückwunsch! Du hast die Aufgabe des Dämons erfolgreich gelöst.");
+            System.out.println("Als Belohnung erhältst du eine spezielle Fähigkeit.");
+            // Implementiere hier die Logik für die Belohnung (z.B., Fähigkeit vergeben)
+
+            // Rufe das Rätsel "CountStrings" auf
+            countStrings();
+        } else {
+            System.out.println("Schade, du hast die Aufgabe des Dämons nicht gelöst.");
+            System.out.println("Der Dämon verschwindet wieder im Nebel...");
+        }
+    } else {
+        System.out.println("Du entscheidest dich, dich vom Dämon zu entfernen...");
     }
+
+    // Schließe den Scanner, um Ressourcen freizugeben
+    scanner.close();
+}
 
     /**
      * Simuliert die Begegnung des Vampirs mit einem Vampirjäger und ermöglicht eine Entscheidung.
@@ -254,5 +279,128 @@ public class VampireAdventureApp {
     private static void closeGame() {
         System.out.println("Das Spiel wird beendet.");
         System.exit(0);
+    }
+
+    /**
+     * Simuliert das Rätsel "CountStrings". Der Spieler muss die Anzahl der Vorkommen der Zeichenfolge "tam"
+     * in einer zufällig generierten Zeichenkette innerhalb von 20 Sekunden zählen und eingeben. Bei richtiger
+     * Antwort erhält der Vampir die Fähigkeit "Double Power".
+     */
+    private static void countStrings() {
+        System.out.println("Willkommen zum Rätsel 'CountStrings'!");
+        System.out.println("In der folgenden Zeichenkette kommt 'tam' x-mal vor.");
+
+        Random random = new Random();
+        int x = random.nextInt(16); // Zufällige Anzahl von 'tam' Vorkommen (0 bis 15)
+        int y = random.nextInt(3);  // Zufällige Anzahl von 'rex' Vorkommen (0 bis 2)
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < x; i++) {
+            stringBuilder.append("tam");
+            if (i < y) {
+                stringBuilder.append("rex");
+            }
+        }
+        String randomString = stringBuilder.toString();
+
+        System.out.println("String: " + randomString);
+        System.out.println("Du hast 20 Sekunden, um die Anzahl der 'tam' Vorkommen zu zählen.");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Anzahl von 'tam': ");
+
+        int answer = 0;
+        try {
+            // Setze einen Timer auf 20 Sekunden
+            long startTime = System.currentTimeMillis();
+            while ((System.currentTimeMillis() - startTime) < 20000) {
+                if (scanner.hasNextInt()) {
+                    answer = scanner.nextInt();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Falsche Eingabe oder Zeit abgelaufen. Das Rätsel wird abgebrochen...");
+        }
+
+        // Überprüfe die Antwort des Spielers
+        if (answer == x) {
+            System.out.println("Richtig! Du hast das Rätsel 'CountStrings' gelöst und bekommst die Fähigkeit 'Double Power'.");
+            // Implementiere hier die Logik für die Fähigkeit 'Double Power'
+        } else {
+            System.out.println("Falsche Antwort oder Zeit abgelaufen. Das Rätsel wird abgebrochen...");
+        }
+
+        // Schließe den Scanner, um Ressourcen freizugeben
+        scanner.close();
+    }
+
+
+
+
+    /**
+     * Startet das Spiel "Biss-Kralle-Knoblauch", bei dem der Spieler gegen den Computer spielt.
+     */
+    @SuppressWarnings("unused")
+    private static void playBiteClawGarlic() {
+        System.out.println("Willkommen zu Biss-Kralle-Knoblauch!");
+        System.out.println("Wähle deine Aktion: (1) Biss, (2) Kralle, (3) Knoblauch");
+
+        int playerChoice = scanner.nextInt();
+        String playerMove = getMove(playerChoice);
+
+        Random random = new Random();
+        int computerChoice = random.nextInt(3) + 1;
+        String computerMove = getMove(computerChoice);
+
+        System.out.println("Deine Wahl: " + playerMove);
+        System.out.println("Wahl des Computers: " + computerMove);
+
+        String result = determineWinner(playerMove, computerMove);
+        System.out.println(result);
+
+        if (result.equals("Du gewinnst!")) {
+            System.out.println("Herzlichen Glückwunsch! Du hast die Fähigkeit 'Transparency' erhalten.");
+            // Implementiere die Logik für die Fähigkeit 'Transparency'
+            currentVampire.gainAbility("Transparency");
+        }
+    }
+
+    /**
+     * Gibt die Zeichenfolge für die gewählte Aktion zurück.
+     * @param choice Die Wahl des Spielers oder Computers
+     * @return Die Zeichenfolge für die gewählte Aktion
+     */
+    private static String getMove(int choice) {
+        switch (choice) {
+            case 1:
+                return "Biss";
+            case 2:
+                return "Kralle";
+            case 3:
+                return "Knoblauch";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Bestimmt den Gewinner basierend auf den Spielregeln.
+     * @param playerMove Die Wahl des Spielers
+     * @param computerMove Die Wahl des Computers
+     * @return Das Ergebnis des Spiels
+     */
+    private static String determineWinner(String playerMove, String computerMove) {
+        if (playerMove.equals(computerMove)) {
+            return "Unentschieden!";
+        } else if (playerMove.equals("Biss") && computerMove.equals("Kralle")) {
+            return "Du gewinnst!";
+        } else if (playerMove.equals("Kralle") && computerMove.equals("Knoblauch")) {
+            return "Du gewinnst!";
+        } else if (playerMove.equals("Knoblauch") && computerMove.equals("Biss")) {
+            return "Du gewinnst!";
+        } else {
+            return "Der Computer gewinnt!";
+        }
     }
 }
