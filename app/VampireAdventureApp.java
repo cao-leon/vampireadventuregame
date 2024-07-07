@@ -32,7 +32,7 @@ public class VampireAdventureApp {
 
     /**
      * Liest die Benutzereingabe für die Menüwahl.
-     * @return Die vom Benutzer eingegebene Zahl
+     * @return Die vom Benutzer eingegebene Zahl.
      */
     private static int readUserInput() {
         System.out.print("\nBitte, geben Sie die Nummer des gewählten Menüpunkts ein: ");
