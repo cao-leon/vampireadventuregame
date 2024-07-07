@@ -213,7 +213,7 @@ private static void meetDemon() {
             System.out.println("Als Belohnung erhältst du eine spezielle Fähigkeit.");
             // Implementiere hier die Logik für die Belohnung (z.B., Fähigkeit vergeben)
 
-            // Rufe das Rätsel "CountStrings" auf
+            // Rufe das Rätsel "CountStrings" auf.
             countStrings();
         } else {
             System.out.println("Schade, du hast die Aufgabe des Dämons nicht gelöst.");
