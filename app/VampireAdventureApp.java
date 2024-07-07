@@ -398,6 +398,6 @@ private static void meetDemon() {
             return "Du gewinnst!";
         } else {
             return "Der Computer gewinnt!";
-        }
+        } 
     }
 }
