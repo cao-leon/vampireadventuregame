@@ -14,6 +14,9 @@ import model.VampireHunter;
 public class VampireAdventureApp {
     private static Scanner scanner = new Scanner(System.in);
     private static Vampire currentVampire;
+    private static boolean countStringsSolved = false;
+    private static boolean biteClawGarlicSolved = false;
+    private static boolean reverseWordsSolved = false;
 
     /**
      * Der Einstiegspunkt der Anwendung.
@@ -94,7 +97,7 @@ public class VampireAdventureApp {
         System.out.println("   ) \\     / (   )   \\     /   (");
         System.out.println("  )_  \\_V_/  _(   )_  \\_V_/  _(");
         System.out.println("    )__   __(       )__   __(             cjr");
-        System.out.println("       `-'             `-'");
+        System.out.println("       -'             -'");
     }
 
     /**
@@ -150,6 +153,7 @@ public class VampireAdventureApp {
     private static void startAdventure() {
         System.out.println("Steht auf, Vampire, die Sonne ist untergegangen und es gibt noch viel zu tun.");
         Random random = new Random();
+
         for (int round = 1; round <= 12; round++) {
             System.out.println("Die Zeit läuft: Runde " + round);
             int encounter = random.nextInt(100);
@@ -169,6 +173,15 @@ public class VampireAdventureApp {
 
             if (currentVampire.isFinallyDead()) {
                 System.out.println("Das Abenteuer ist vorbei, weil der Vampir tot ist.");
+                break;
+            }
+
+            // Füge den Aufruf von solvePuzzle hinzu
+            solvePuzzle(countStringsSolved, biteClawGarlicSolved, reverseWordsSolved);
+
+            // Überprüfe, ob alle Rätsel gelöst wurden und rufe BeatGame auf
+            if (countStringsSolved && biteClawGarlicSolved && reverseWordsSolved) {
+                BeatGame();
                 break;
             }
         }
@@ -202,7 +215,7 @@ public class VampireAdventureApp {
         // Füge hier Logik hinzu, um die Aufgabe des Dämons zu präsentieren und die Belohnung zu vergeben
     }
 
-    /**
+      /**
      * Simuliert die Begegnung des Vampirs mit einem Vampirjäger und ermöglicht eine Entscheidung.
      */
     private static void meetVampireHunter() {
@@ -231,150 +244,124 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Kämpft gegen den Vampirjäger. Endet das Spiel, wenn der Vampir besiegt wird.
+     * Simuliert den Kampf mit dem Vampirjäger. Bei Misserfolg wird der Vampir getötet.
      */
     private static void fightVampireHunter() {
-        System.out.println("Der Vampir kämpft gegen den Vampirjäger.");
-        VampireHunter hunter = new VampireHunter("Jäger", 30);
-        hunter.attack(currentVampire);
-        if (currentVampire.getEnergy() <= 0) {
-            System.out.println("Der Vampir wurde getötet. Das Spiel ist vorbei.");
-            System.exit(0);
+        Random random = new Random();
+        if (random.nextInt(100) < 50) {
+            System.out.println("Der Vampir hat den Vampirjäger besiegt.");
         } else {
-            currentVampire.attack(hunter);
-            if (hunter.getEnergy() <= 0) {
-                System.out.println("Der Vampirjäger wurde getötet.");
-            }
+            System.out.println("Der Vampir wurde vom Vampirjäger getötet.");
+            currentVampire.setFinallyDead(true);
         }
     }
 
+
     /**
-     * Beendet das Spiel und beendet das Programm.
+     * Schließt das Spiel und verabschiedet sich vom Benutzer.
      */
     private static void closeGame() {
-        System.out.println("Das Spiel wird beendet.");
+        System.out.println("Auf Wiedersehen. Das Spiel wird beendet.");
         System.exit(0);
- 
     }
+
     /**
-     * Simuliert das Rätsel "CountStrings". Der Spieler muss die Anzahl der Vorkommen der Zeichenfolge "tam"
-     * in einer zufällig generierten Zeichenkette innerhalb von 20 Sekunden zählen und eingeben. Bei richtiger
-     * Antwort erhält der Vampir die Fähigkeit "Double Power".
+     * Beendet das Spiel und zeigt eine Abschlussmeldung an.
      */
-    @SuppressWarnings("unused")
-    private static void countStrings() {
-        System.out.println("Willkommen zum Rätsel 'CountStrings'!");
-        System.out.println("In der folgenden Zeichenkette kommt 'tam' x-mal vor.");
-
-        Random random = new Random();
-        int x = random.nextInt(16); // Zufällige Anzahl von 'tam' Vorkommen (0 bis 15)
-        int y = random.nextInt(3);  // Zufällige Anzahl von 'rex' Vorkommen (0 bis 2)
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < x; i++) {
-            stringBuilder.append("tam");
-            if (i < y) {
-                stringBuilder.append("rex");
-            }
-        }
-        String randomString = stringBuilder.toString();
-
-        System.out.println("String: " + randomString);
-        System.out.println("Du hast 20 Sekunden, um die Anzahl der 'tam' Vorkommen zu zählen.");
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Anzahl von 'tam': ");
-
-        int answer = 0;
-        try {
-            // Setze einen Timer auf 20 Sekunden
-            long startTime = System.currentTimeMillis();
-            while ((System.currentTimeMillis() - startTime) < 20000) {
-                if (scanner.hasNextInt()) {
-                    answer = scanner.nextInt();
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Falsche Eingabe oder Zeit abgelaufen. Das Rätsel wird abgebrochen...");
-        }
-
-        // Überprüfe die Antwort des Spielers
-        if (answer == x) {
-            System.out.println("Richtig! Du hast das Rätsel 'CountStrings' gelöst und bekommst die Fähigkeit 'Double Power'.");
-            // Implementiere hier die Logik für die Fähigkeit 'Double Power'
-        } else {
-            System.out.println("Falsche Antwort oder Zeit abgelaufen. Das Rätsel wird abgebrochen...");
-        }
-
-        // Schließe den Scanner, um Ressourcen freizugeben
-        scanner.close();
+    private static void BeatGame() {
+        System.out.println("Herzlichen Glückwunsch! Du hast alle Aufgaben und Rätsel gelöst und das Spiel erfolgreich beendet.");
+        System.exit(0);
     }
 
-
-/**
-     * Startet das Spiel "Biss-Kralle-Knoblauch", bei dem der Spieler gegen den Computer spielt.
+    /**
+     * Löst das Puzzle, wenn alle anderen Puzzles gelöst wurden.
+     * @param countStringsSolved 
+     * @param biteClawGarlicSolved 
+     * @param reverseWordsSolved 
      */
-    @SuppressWarnings("unused")
-    private static void playBiteClawGarlic() {
+    private static void solvePuzzle(boolean countStringsSolved, boolean biteClawGarlicSolved, boolean reverseWordsSolved) {
+        if (!countStringsSolved) {
+            countStringsSolved = countStrings();
+        } else if (!biteClawGarlicSolved) {
+            biteClawGarlicSolved = playBiteClawGarlic();
+        } else if (!reverseWordsSolved) {
+            reverseWordsSolved = reverseWordsPuzzle();
+        }
+
+        if (countStringsSolved && biteClawGarlicSolved && reverseWordsSolved) {
+            System.out.println("Du hast alle Puzzles gelöst! Der größte Vampirjäger des Jahrhunderts erscheint.");
+            meetVampireHunter();
+        }
+    }
+
+    /**
+     * Ein Beispiel-Rätsel, bei dem die Anzahl der Zeichen in einer Zeichenfolge gezählt wird.
+     * @return true, wenn das Rätsel korrekt gelöst wurde.
+     */
+    private static boolean countStrings() {
+        System.out.println("Willkommen zum Rätsel 'CountStrings'!");
+        System.out.print("Gib eine Zeichenfolge ein: ");
+        String input = scanner.next();
+        System.out.print("Wie viele Zeichen hat die Zeichenfolge? ");
+        int count = scanner.nextInt();
+        boolean correct = (input.length() == count);
+        if (correct) {
+            System.out.println("Richtig! Die Zeichenfolge hat " + count + " Zeichen.");
+        } else {
+            System.out.println("Falsch! Die Zeichenfolge hat " + input.length() + " Zeichen.");
+        }
+        return correct;
+    }
+
+    /**
+     * Ein Beispielspiel "Bite, Claw, Garlic".
+     * @return true, wenn der Spieler gewinnt.
+     */
+    private static boolean playBiteClawGarlic() {
         System.out.println("Willkommen zu Biss-Kralle-Knoblauch!");
-        System.out.println("Wähle deine Aktion: (1) Biss, (2) Kralle, (3) Knoblauch");
-
+        System.out.println("Wähle (1) Biss, (2) Kralle oder (3) Knoblauch:");
         int playerChoice = scanner.nextInt();
-        String playerMove = getMove(playerChoice);
-
         Random random = new Random();
         int computerChoice = random.nextInt(3) + 1;
-        String computerMove = getMove(computerChoice);
-
-        System.out.println("Deine Wahl: " + playerMove);
-        System.out.println("Wahl des Computers: " + computerMove);
-
-        String result = determineWinner(playerMove, computerMove);
-        System.out.println(result);
-
-        if (result.equals("Du gewinnst!")) {
-            System.out.println("Herzlichen Glückwunsch! Du hast die Fähigkeit 'Transparency' erhalten.");
-            // Implementiere die Logik für die Fähigkeit 'Transparency'
-            currentVampire.gainAbility("Transparency");
-        }
-    }
-
-    /**
-     * Gibt die Zeichenfolge für die gewählte Aktion zurück.
-     * @param choice Die Wahl des Spielers oder Computers
-     * @return Die Zeichenfolge für die gewählte Aktion
-     */
-    private static String getMove(int choice) {
-        switch (choice) {
-            case 1:
-                return "Biss";
-            case 2:
-                return "Kralle";
-            case 3:
-                return "Knoblauch";
-            default:
-                return "";
-        }
-    }
-
-    /**
-     * Bestimmt den Gewinner basierend auf den Spielregeln.
-     * @param playerMove Die Wahl des Spielers
-     * @param computerMove Die Wahl des Computers
-     * @return Das Ergebnis des Spiels
-     */
-    private static String determineWinner(String playerMove, String computerMove) {
-        if (playerMove.equals(computerMove)) {
-            return "Unentschieden!";
-        } else if (playerMove.equals("Biss") && computerMove.equals("Kralle")) {
-            return "Du gewinnst!";
-        } else if (playerMove.equals("Kralle") && computerMove.equals("Knoblauch")) {
-            return "Du gewinnst!";
-        } else if (playerMove.equals("Knoblauch") && computerMove.equals("Biss")) {
-            return "Du gewinnst!";
+        System.out.println("Computer wählt: " + computerChoice);
+        String result;
+        if (playerChoice == computerChoice) {
+            result = "Unentschieden!";
+        } else if ((playerChoice == 1 && computerChoice == 2) || 
+                   (playerChoice == 2 && computerChoice == 3) || 
+                   (playerChoice == 3 && computerChoice == 1)) {
+            result = "Du verlierst!";
         } else {
-            return "Der Computer gewinnt!";
+            result = "Du gewinnst!";
         }
+        System.out.println(result);
+        return result.equals("Du gewinnst!");
+    }
+
+    /**
+     * Ein Beispiel-Rätsel, bei dem Wörter in einer Zeichenfolge umgekehrt werden.
+     * @return true, wenn das Rätsel korrekt gelöst wurde.
+     */
+    private static boolean reverseWordsPuzzle() {
+        System.out.println("Willkommen zum Puzzle 'Reverse Words'!");
+        System.out.print("Gib einen Satz ein: ");
+        scanner.nextLine(); // Consume the newline character
+        String sentence = scanner.nextLine();
+        String[] words = sentence.split(" ");
+        StringBuilder reversedSentence = new StringBuilder();
+        for (String word : words) {
+            reversedSentence.append(new StringBuilder(word).reverse().toString()).append(" ");
+        }
+        reversedSentence.setLength(reversedSentence.length() - 1); // Remove the trailing space
+        System.out.println("Der Satz mit umgekehrten Wörtern lautet: " + reversedSentence);
+        System.out.print("Gib den Satz mit umgekehrten Wörtern ein: ");
+        String userReversedSentence = scanner.nextLine();
+        boolean correct = reversedSentence.toString().equals(userReversedSentence);
+        if (correct) {
+            System.out.println("Richtig! Der Satz wurde korrekt umgekehrt.");
+        } else {
+            System.out.println("Falsch! Der Satz wurde nicht korrekt umgekehrt.");
+        }
+        return correct;
     }
 }
