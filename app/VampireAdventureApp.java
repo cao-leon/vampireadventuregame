@@ -197,10 +197,15 @@ public class VampireAdventureApp {
             System.out.print("Wie viel Blut möchtest du trinken? ");
             double amount = scanner.nextDouble();
             currentVampire.drinkBlood(amount);
+    
+            // Überprüfen, ob der Vampir durch zu viel Blut gestorben ist
+            if (currentVampire.isFinallyDead()) {
+                System.out.println("Du hast zu viel Blut getrunken und bist gestorben...");
+            }
         } else {
             System.out.println("Du lässt den Menschen in Ruhe.");
         }
-    }
+    }      
 
     /**
      * Simuliert die Begegnung des Vampirs mit einem Dämon und stellt eine Aufgabe.

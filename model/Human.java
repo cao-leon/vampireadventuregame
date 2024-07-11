@@ -56,9 +56,14 @@ public class Human {
     public void loseBlood(double amount) {
         this.amountOfBlood -= amount;
         System.out.println("Der Mensch hat " + amount + " Liter Blut verloren.");
-        if (this.amountOfBlood < 5) {
+        if (this.amountOfBlood < 5 && this.amountOfBlood >= 0) {
             System.out.println("Der Mensch hat sich in einen Vampir verwandelt!");
-            // Logik zur Verwandlung in einen Vampir hinzufügen
+            // Logik zur Verwandlung in einen Vampir
+            Vampire newVampire = new Vampire("New Vampire Name", 100); // Beispielwerte für den neuen Vampir
+            System.out.println("Ein neuer Vampir namens " + newVampire.getName() + " ist entstanden!");
+        } else if (this.amountOfBlood < 0) {
+            this.amountOfBlood = 0;
+            System.out.println("Der Mensch ist gestorben.");
         }
-    }
+    }    
 }

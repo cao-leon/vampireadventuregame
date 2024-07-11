@@ -143,8 +143,30 @@ public class Vampire {
      * @param amount Die Menge an Blut, die getrunken wird.
      */
     public void drinkBlood(double amount) {
-        System.out.println("Der Vampir trinkt " + amount + " Liter Blut.");
-    }
+        if (amount <= 0) {
+            System.out.println("Du kannst nicht weniger als 0 Liter Blut trinken!");
+            return;
+        }
+    
+        if (amount > 8) {
+            System.out.println("Du trinkst zu viel Blut und stirbst!");
+            this.setFinallyDead(true);
+            return;
+        }
+    
+        System.out.println("Du trinkst " + amount + " Liter Blut.");
+    
+        this.hunger -= amount / 2;
+        this.energy += amount * 2;
+    
+        if (this.hunger < 0) {
+            this.hunger = 0;
+        }
+    
+        if (this.energy > 100) {
+            this.energy = 100;
+        }
+    }    
 
     /**
      * Der Vampir nimmt Schaden.
