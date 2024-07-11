@@ -176,9 +176,6 @@ public class VampireAdventureApp {
                 break;
             }
 
-            // Füge den Aufruf von solvePuzzle hinzu
-            solvePuzzle(countStringsSolved, biteClawGarlicSolved, reverseWordsSolved);
-
             // Überprüfe, ob alle Rätsel gelöst wurden und rufe BeatGame auf
             if (countStringsSolved && biteClawGarlicSolved && reverseWordsSolved) {
                 BeatGame();
@@ -209,159 +206,120 @@ public class VampireAdventureApp {
      * Simuliert die Begegnung des Vampirs mit einem Dämon und stellt eine Aufgabe.
      */
     private static void meetDemon() {
-        System.out.println("Du triffst auf einen Dämon. Er stellt dir eine Aufgabe.");
-        Demon demon = new Demon("Dämon");
-        demon.presentTask();
-        // Füge hier Logik hinzu, um die Aufgabe des Dämons zu präsentieren und die Belohnung zu vergeben
+        Demon demon = new Demon("Shadowfiend");
+        System.out.println("Ein Dämon namens " + demon.getName() + " erscheint...");
+        System.out.println("(1) Mit dem Dämon sprechen");
+        System.out.println("(2) Sich entfernen");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
+            talkToDemon(demon);
+        } else {
+            System.out.println("Der Vampir entfernt sich und der Dämon verschwindet wieder im Nebel.");
+        }
     }
 
-      /**
+    /**
+     * Simuliert das Gespräch mit dem Dämon und bietet eine Aufgabe an.
+     */
+    private static void talkToDemon(Demon demon) {
+        System.out.println("Der Dämon " + demon.getName() + " erzählt dir seine Geschichte und fragt, ob du bereit bist, eine Aufgabe zu erfüllen.");
+        System.out.println("(1) Aufgabe erfüllen");
+        System.out.println("(2) Entfernen");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
+            demon.presentTask();
+            solvePuzzle();
+        } else {
+            System.out.println("Der Vampir entfernt sich vom Dämon, und der Dämon verschwindet wieder im Nebel.");
+        }
+    }
+
+    /**
      * Simuliert die Begegnung des Vampirs mit einem Vampirjäger und ermöglicht eine Entscheidung.
      */
     private static void meetVampireHunter() {
-        System.out.println("Ein Vampirjäger hat deinen Weg gekreuzt. Deine Zeit ist gekommen...");
+        VampireHunter vampireHunter = new VampireHunter("Van Helsing");
+        System.out.println("Ein Vampirjäger namens " + vampireHunter.getName() + " hat deinen Weg gekreuzt. Deine Zeit ist gekommen...");
         System.out.println("(1) Fliehen");
         System.out.println("(2) Kämpfen");
         int choice = scanner.nextInt();
         if (choice == 1) {
-            fleeVampireHunter();
+            fleeVampireHunter(vampireHunter);
         } else if (choice == 2) {
-            fightVampireHunter();
+            fightVampireHunter(vampireHunter);
         }
     }
 
     /**
-     * Versucht, vor dem Vampirjäger zu fliehen. Bei Misserfolg wird gekämpft.
+     * Simuliert die Flucht vor dem Vampirjäger.
      */
-    private static void fleeVampireHunter() {
+    private static void fleeVampireHunter(VampireHunter vampireHunter) {
         Random random = new Random();
-        if (random.nextInt(100) < 60) {
-            System.out.println("Der Vampir ist erfolgreich geflohen.");
+        int success = random.nextInt(100);
+        if (success < 50) {
+            System.out.println("Du konntest erfolgreich fliehen!");
         } else {
-            System.out.println("Der Vampir konnte nicht fliehen und muss kämpfen.");
-            fightVampireHunter();
-        }
-    }
-
-    /**
-     * Simuliert den Kampf mit dem Vampirjäger. Bei Misserfolg wird der Vampir getötet.
-     */
-    private static void fightVampireHunter() {
-        Random random = new Random();
-        if (random.nextInt(100) < 50) {
-            System.out.println("Der Vampir hat den Vampirjäger besiegt.");
-        } else {
-            System.out.println("Der Vampir wurde vom Vampirjäger getötet.");
+            System.out.println("Der Vampirjäger hat dich erwischt und dich endgültig getötet.");
             currentVampire.setFinallyDead(true);
         }
     }
 
+    /**
+     * Simuliert den Kampf mit dem Vampirjäger.
+     */
+    private static void fightVampireHunter(VampireHunter vampireHunter) {
+        Random random = new Random();
+        int success = random.nextInt(100);
+        if (success < 50) {
+            System.out.println("Du hast den Vampirjäger erfolgreich besiegt!");
+        } else {
+            System.out.println("Der Vampirjäger hat dich besiegt und dich endgültig getötet.");
+            currentVampire.setFinallyDead(true);
+        }
+    }
 
     /**
-     * Schließt das Spiel und verabschiedet sich vom Benutzer.
+     * Beendet das Spiel.
      */
     private static void closeGame() {
-        System.out.println("Auf Wiedersehen. Das Spiel wird beendet.");
-        System.exit(0);
+        scanner.close();
     }
 
     /**
-     * Beendet das Spiel und zeigt eine Abschlussmeldung an.
+     * Beendet das Spiel und zeigt eine Siegesnachricht an, wenn alle Rätsel gelöst wurden.
      */
     private static void BeatGame() {
-        System.out.println("Herzlichen Glückwunsch! Du hast alle Aufgaben und Rätsel gelöst und das Spiel erfolgreich beendet.");
+        System.out.println("Du hast alle Rätsel gelöst und das Spiel gewonnen!");
         System.exit(0);
     }
 
     /**
-     * Löst das Puzzle, wenn alle anderen Puzzles gelöst wurden.
-     * @param countStringsSolved 
-     * @param biteClawGarlicSolved 
-     * @param reverseWordsSolved 
+     * Stellt eine Aufgabe und überprüft die Lösung.
      */
-    private static void solvePuzzle(boolean countStringsSolved, boolean biteClawGarlicSolved, boolean reverseWordsSolved) {
-        if (!countStringsSolved) {
-            countStringsSolved = countStrings();
-        } else if (!biteClawGarlicSolved) {
-            biteClawGarlicSolved = playBiteClawGarlic();
-        } else if (!reverseWordsSolved) {
-            reverseWordsSolved = reverseWordsPuzzle();
-        }
-
-        if (countStringsSolved && biteClawGarlicSolved && reverseWordsSolved) {
-            System.out.println("Du hast alle Puzzles gelöst! Der größte Vampirjäger des Jahrhunderts erscheint.");
-            meetVampireHunter();
-        }
-    }
-
-    /**
-     * Ein Beispiel-Rätsel, bei dem die Anzahl der Zeichen in einer Zeichenfolge gezählt wird.
-     * @return true, wenn das Rätsel korrekt gelöst wurde.
-     */
-    private static boolean countStrings() {
-        System.out.println("Willkommen zum Rätsel 'CountStrings'!");
-        System.out.print("Gib eine Zeichenfolge ein: ");
+    private static void solvePuzzle() {
+        System.out.println("Hier ist dein Rätsel: Zähle die Vorkommen von Zeichen in einem String.");
+        System.out.print("Gib den String ein: ");
         String input = scanner.next();
-        System.out.print("Wie viele Zeichen hat die Zeichenfolge? ");
-        int count = scanner.nextInt();
-        boolean correct = (input.length() == count);
-        if (correct) {
-            System.out.println("Richtig! Die Zeichenfolge hat " + count + " Zeichen.");
-        } else {
-            System.out.println("Falsch! Die Zeichenfolge hat " + input.length() + " Zeichen.");
-        }
-        return correct;
+        System.out.print("Gib das zu zählende Zeichen ein: ");
+        char ch = scanner.next().charAt(0);
+        int count = countOccurrences(input, ch);
+        System.out.println("Das Zeichen '" + ch + "' kommt " + count + " Mal in dem String vor.");
+        countStringsSolved = true;
     }
 
     /**
-     * Ein Beispielspiel "Bite, Claw, Garlic".
-     * @return true, wenn der Spieler gewinnt.
+     * Zählt die Vorkommen eines Zeichens in einem String.
+     * @param str Der String
+     * @param ch Das zu zählende Zeichen
+     * @return Die Anzahl der Vorkommen
      */
-    private static boolean playBiteClawGarlic() {
-        System.out.println("Willkommen zu Biss-Kralle-Knoblauch!");
-        System.out.println("Wähle (1) Biss, (2) Kralle oder (3) Knoblauch:");
-        int playerChoice = scanner.nextInt();
-        Random random = new Random();
-        int computerChoice = random.nextInt(3) + 1;
-        System.out.println("Computer wählt: " + computerChoice);
-        String result;
-        if (playerChoice == computerChoice) {
-            result = "Unentschieden!";
-        } else if ((playerChoice == 1 && computerChoice == 2) || 
-                   (playerChoice == 2 && computerChoice == 3) || 
-                   (playerChoice == 3 && computerChoice == 1)) {
-            result = "Du verlierst!";
-        } else {
-            result = "Du gewinnst!";
+    private static int countOccurrences(String str, char ch) {
+        int count = 0;
+        for (char c : str.toCharArray()) {
+            if (c == ch) {
+                count++;
+            }
         }
-        System.out.println(result);
-        return result.equals("Du gewinnst!");
-    }
-
-    /**
-     * Ein Beispiel-Rätsel, bei dem Wörter in einer Zeichenfolge umgekehrt werden.
-     * @return true, wenn das Rätsel korrekt gelöst wurde.
-     */
-    private static boolean reverseWordsPuzzle() {
-        System.out.println("Willkommen zum Puzzle 'Reverse Words'!");
-        System.out.print("Gib einen Satz ein: ");
-        scanner.nextLine(); // Consume the newline character
-        String sentence = scanner.nextLine();
-        String[] words = sentence.split(" ");
-        StringBuilder reversedSentence = new StringBuilder();
-        for (String word : words) {
-            reversedSentence.append(new StringBuilder(word).reverse().toString()).append(" ");
-        }
-        reversedSentence.setLength(reversedSentence.length() - 1); // Remove the trailing space
-        System.out.println("Der Satz mit umgekehrten Wörtern lautet: " + reversedSentence);
-        System.out.print("Gib den Satz mit umgekehrten Wörtern ein: ");
-        String userReversedSentence = scanner.nextLine();
-        boolean correct = reversedSentence.toString().equals(userReversedSentence);
-        if (correct) {
-            System.out.println("Richtig! Der Satz wurde korrekt umgekehrt.");
-        } else {
-            System.out.println("Falsch! Der Satz wurde nicht korrekt umgekehrt.");
-        }
-        return correct;
+        return count;
     }
 }
